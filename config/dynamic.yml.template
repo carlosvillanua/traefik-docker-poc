@@ -1,0 +1,55 @@
+http:
+  routers:
+    httpbin:
+      rule: "Host(`${DOMAIN}`)"
+      entryPoints:
+        - websecure
+      service: httpbin
+      middlewares:
+        - jwt-auth
+      tls:
+        certResolver: letsencrypt
+    
+    # Admin service route based on JWT role claim
+    httpbin-admin:
+      rule: "Host(`${DOMAIN}`) && Path(`/admin`)"
+      entryPoints:
+        - websecure
+      service: httpbin-admin
+      middlewares:
+        - jwt-auth
+        - admin-rewrite
+      tls:
+        certResolver: letsencrypt
+
+  middlewares:
+    jwt-auth:
+      plugin:
+        jwt:
+          jwksUrl: "${JWKS_URL}"
+          forwardHeaders:
+            Group: "group"
+            Email: "email"
+    
+    # URL rewrite: /admin -> /headers
+    admin-rewrite:
+      replacePathRegex:
+        regex: "^/admin"
+        replacement: "/headers"
+    
+    # Strip prefix middleware (example)
+    strip-admin:
+      stripPrefix:
+        prefixes:
+          - "/admin"
+
+  services:
+    httpbin:
+      loadBalancer:
+        servers:
+          - url: "http://httpbin:80"
+    
+    httpbin-admin:
+      loadBalancer:
+        servers:
+          - url: "http://httpbin:80"
