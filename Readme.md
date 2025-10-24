@@ -1,4 +1,4 @@
-# Traefik Hub JWT Authentication Setup
+# Traefik Hub API Gateway
 
 A complete Traefik Hub configuration with JWT authentication, URL rewriting, and Let's Encrypt SSL certificates.
 
