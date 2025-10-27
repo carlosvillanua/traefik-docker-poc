@@ -21,10 +21,11 @@ services:
       # Providers
       - --providers.file.directory=/config
       - --providers.file.watch=true
-      # ACME / Let's Encrypt
-      - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
-      - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
-      - --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+      # ACME / Certificate Resolver
+      - --certificatesresolvers.myacme.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.myacme.acme.storage=/data/acme.json
+      - --certificatesresolvers.myacme.acme.caserver=${ACME_CA_SERVER}
+      - --certificatesresolvers.myacme.acme.httpchallenge.entrypoint=web
       # Logging
       - --log.level=DEBUG
       - --accesslog=true
