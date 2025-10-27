@@ -30,18 +30,46 @@ The `config/dynamic.yml` file contains:
    # Edit .env with your values
    ```
 
-3. **Generate Dynamic Configuration**
+2. **Generate Dynamic Configuration**
    ```bash
    ./generate-config.sh
    ```
 
-4. **Start Services**
+3. **Start Services**
 
    ```bash
    export TRAEFIK_HUB_TOKEN=<<add your token here>>
    export ACME_EMAIL=<<add your email here>>
    docker-compose up -d
    ```
+
+## API Routes
+
+### Main Service Route
+Access the httpbin service with JWT authentication:
+
+```bash
+# Make authenticated request to main service (replace YOUR_DOMAIN and JWT_TOKEN)
+curl -H "Authorization: Bearer JWT_TOKEN" \
+     https://YOUR_DOMAIN/get
+```
+
+### Admin Route
+Access the admin route (rewrites `/admin` to `/headers`):
+
+```bash
+# Admin route with JWT authentication and URL rewriting
+curl -H "Authorization: Bearer JWT_TOKEN" \
+     https://YOUR_DOMAIN/admin
+```
+
+### Without Authentication (will return 401)
+```bash
+# This will fail with 401 Unauthorized
+curl https://YOUR_DOMAIN/get
+```
+
+**Note**: All routes use HTTPS with Let's Encrypt certificates via the `websecure` entrypoint (port 443).
 
 ## Monitoring
 
