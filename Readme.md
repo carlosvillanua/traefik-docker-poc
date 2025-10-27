@@ -6,7 +6,7 @@ A complete Traefik Hub configuration with JWT authentication, URL rewriting, and
 
 - 🔐 **JWT Authentication** with Keycloak integration
 - 🔄 **URL Rewriting** for admin routes
-- 🛡️ **HTTPS/SSL** with Let's Encrypt certificates
+- 🛡️ **HTTPS/SSL** with certificates
 - 📁 **File Provider** for dynamic configuration
 
 ## Dynamic Configuration
@@ -40,8 +40,8 @@ The `config/dynamic.yml` file contains:
    ```bash
    export TRAEFIK_HUB_TOKEN=<<add your token here>>
    export ACME_EMAIL=<<add your email here>>
-   export ACME_CA_SERVER=https://acme-v02.api.letsencrypt.org/directory
-   # For Swisssign: export ACME_CA_SERVER=https://acme-v02.api.swisssign.net/directory
+   export ACME_CA_SERVER=<<add your ca server here>>
+   # For Swisssign an example ca server could be: export ACME_CA_SERVER=https://acme-v02.api.swisssign.net/directory
    docker-compose up -d
    ```
 

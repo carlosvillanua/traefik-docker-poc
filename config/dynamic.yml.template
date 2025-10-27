@@ -8,7 +8,7 @@ http:
       middlewares:
         - jwt-auth
       tls:
-        certResolver: letsencrypt
+        certResolver: myacme
     
     # Admin service route based on JWT role claim
     httpbin-admin:
@@ -20,7 +20,7 @@ http:
         - jwt-auth
         - admin-rewrite
       tls:
-        certResolver: letsencrypt
+        certResolver: myacme
 
   middlewares:
     jwt-auth:
